@@ -1,11 +1,22 @@
-const express = require('express');
+const express = require("express");
+const cors = require("cors");
+const conn = require("./db/conn");
+
 const app = express();
-const PORT = 3000;
 
-app.get('/', (req, res) => {
-    res.json({ message: "Hello from the backend!" });
-});
+app.use(cors());
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
+app.use(express.json());
 
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-});
+conn
+  .sync()
+  .then(() => {
+    app.listen(3000);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
