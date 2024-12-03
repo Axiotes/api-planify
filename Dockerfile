@@ -15,4 +15,4 @@ RUN npm install
 EXPOSE 3000
 
 # Comando para rodar a aplicação
-CMD ["node", "index.js"]
+CMD ["npm", "start"]
