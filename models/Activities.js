@@ -29,11 +29,13 @@ const Activities = db.define("Activities", {
     type: DataTypes.SMALLINT,
     require: true,
     allowNull: false,
+    defaultValue: 1,
   },
   alert: {
     type: DataTypes.BOOLEAN,
     require: true,
     allowNull: false,
+    defaultValue: false,
   },
 });
 
