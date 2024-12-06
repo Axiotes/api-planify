@@ -7,6 +7,8 @@ const app = express();
 const User = require("./models/User");
 const Activities = require("./models/Activities");
 
+const userRoutes = require("./routes/userRoutes");
+
 app.use(cors());
 app.use(
   express.urlencoded({
@@ -14,6 +16,8 @@ app.use(
   })
 );
 app.use(express.json());
+
+app.use("/user", userRoutes);
 
 conn
   .sync()

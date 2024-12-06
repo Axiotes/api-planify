@@ -9,10 +9,7 @@ const createUserToken = async (user, req, res) => {
     "secret"
   );
 
-  res.status(200).json({
-    token: token,
-    userId: user._id,
-  });
+  return token;
 };
 
 module.exports = createUserToken;

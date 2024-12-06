@@ -36,7 +36,13 @@ module.exports = class UserController {
     try {
       const newUser = await User.create(user);
 
-      await createUserToken(newUser, req, res);
+      const token = await createUserToken(newUser, req, res);
+
+      res.send({
+        message: "Cadastro realizado com sucesso!",
+        userId: newUser.id,
+        token: token,
+      });
     } catch (err) {
       console.log(err);
       res.send({
