@@ -4,6 +4,29 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 
 module.exports = class UserController {
+  static async login(req, res) {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ where: { email: email } });
+    const passwordMatch = bcrypt.compareSync(password, user.password);
+
+    if (!user || !passwordMatch) {
+      res.send({
+        message: "Email ou senha inválido",
+      });
+
+      return;
+    }
+
+    const token = await createUserToken(user);
+
+    res.send({
+      message: "",
+      userId: user.id,
+      token: token,
+    });
+  }
+
   static async register(req, res) {
     const { email, password, confirmPassword } = req.body;
 
@@ -36,7 +59,7 @@ module.exports = class UserController {
     try {
       const newUser = await User.create(user);
 
-      const token = await createUserToken(newUser, req, res);
+      const token = await createUserToken(newUser);
 
       res.send({
         message: "Cadastro realizado com sucesso!",

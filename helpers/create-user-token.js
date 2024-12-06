@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-const createUserToken = async (user, req, res) => {
+const createUserToken = async (user) => {
   const token = jwt.sign(
     {
       email: user.email,
