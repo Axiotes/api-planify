@@ -4,6 +4,9 @@ const conn = require("./db/conn");
 
 const app = express();
 
+const User = require("./models/User");
+const Activities = require("./models/Activities");
+
 app.use(cors());
 app.use(
   express.urlencoded({
