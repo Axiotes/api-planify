@@ -8,22 +8,37 @@ module.exports = class UserController {
     const { email, password } = req.body;
 
     const user = await User.findOne({ where: { email: email } });
-    const passwordMatch = bcrypt.compareSync(password, user.password);
 
-    if (!user || !passwordMatch) {
-      res.send({
+    if (!user) {
+      res.status(401).send({
         message: "Email ou senha inválido",
       });
 
       return;
     }
 
-    const token = await createUserToken(user);
+    const passwordMatch = bcrypt.compareSync(password, user.password);
 
-    res.send({
-      message: "",
-      token: token,
-    });
+    if (!passwordMatch) {
+      res.status(401).send({
+        message: "Email ou senha inválido",
+      });
+
+      return;
+    }
+
+    try {
+      const token = await createUserToken(user);
+
+      res.status(200).send({
+        message: "",
+        token: token,
+      });
+    } catch (err) {
+      res.status(400).send({
+        message: "Houve um erro ao realizar o login",
+      });
+    }
   }
 
   static async register(req, res) {
