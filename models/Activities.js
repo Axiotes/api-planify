@@ -29,15 +29,22 @@ const Activities = db.define("Activities", {
     type: DataTypes.SMALLINT,
     require: true,
     allowNull: false,
+    defaultValue: 1,
   },
   alert: {
     type: DataTypes.BOOLEAN,
     require: true,
     allowNull: false,
+    defaultValue: false,
   },
 });
 
-Activities.belongsTo(User);
-User.hasMany(Activities);
+Activities.belongsTo(User, {
+  foreignKey: "userId",
+  onDelete: "CASCADE",
+});
+User.hasMany(Activities, {
+  foreignKey: "userId",
+});
 
 module.exports = Activities;
