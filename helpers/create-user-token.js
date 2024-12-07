@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const createUserToken = async (user) => {
   const token = jwt.sign(
@@ -6,7 +7,7 @@ const createUserToken = async (user) => {
       email: user.email,
       id: user.id,
     },
-    "secret"
+    process.env.JWT_SECRET
   );
 
   return token;

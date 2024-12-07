@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const getToken = require("../helpers/get-token");
 const User = require("../models/User");
+require("dotenv").config();
 
 const checkUser = async (req, res, next) => {
   const token = getToken(req);
@@ -11,7 +12,7 @@ const checkUser = async (req, res, next) => {
     });
   }
 
-  jwt.verify(token, "secret", (err, decoded) => {
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
       return res.status(401).send({
         message: "Falha na autenticação",
