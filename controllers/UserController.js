@@ -22,7 +22,6 @@ module.exports = class UserController {
 
     res.send({
       message: "",
-      userId: user.id,
       token: token,
     });
   }
@@ -63,7 +62,6 @@ module.exports = class UserController {
 
       res.send({
         message: "Cadastro realizado com sucesso!",
-        userId: newUser.id,
         token: token,
       });
     } catch (err) {

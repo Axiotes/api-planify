@@ -3,7 +3,7 @@ const Activities = require("../models/Activities");
 module.exports = class ActivitiesController {
   static async createActivity(req, res) {
     const newActivity = {
-      UserId: req.body.userId,
+      userId: req.userId,
       title: req.body.title,
       date: req.body.date,
       time: req.body.time,

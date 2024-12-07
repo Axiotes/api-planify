@@ -39,7 +39,12 @@ const Activities = db.define("Activities", {
   },
 });
 
-Activities.belongsTo(User);
-User.hasMany(Activities);
+Activities.belongsTo(User, {
+  foreignKey: "userId",
+  onDelete: "CASCADE",
+});
+User.hasMany(Activities, {
+  foreignKey: "userId",
+});
 
 module.exports = Activities;

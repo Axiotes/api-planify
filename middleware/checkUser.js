@@ -6,12 +6,30 @@ const checkUser = async (req, res, next) => {
   const token = getToken(req);
 
   if (!token) {
-    res.status(401).send({
+    return res.status(401).send({
       message: "Usuário não autorizado",
     });
   }
 
-  next();
+  jwt.verify(token, "secret", (err, decoded) => {
+    if (err) {
+      return res.status(401).send({
+        message: "Falha na autenticação",
+      });
+    }
+
+    const user = User.findByPk(decoded.id);
+
+    if (!user) {
+      return res.status(401).send({
+        message: "Usuário não autorizado",
+      });
+    }
+
+    req.userId = decoded.id;
+
+    next();
+  });
 };
 
 module.exports = checkUser;
