@@ -52,4 +52,23 @@ module.exports = class ActivitiesController {
       });
     }
   }
+
+  static async deleteActivity(req, res) {
+    const id = req.params.id;
+    const userId = req.userId;
+
+    try {
+      await Activities.destroy({ where: { id: id, userId: userId } });
+
+      res.status(200).send({
+        message: "Atividade removida com sucesso",
+      });
+    } catch (err) {
+      console.log(err);
+
+      res.status(400).send({
+        message: "Houve um erro ao remover atividade",
+      });
+    }
+  }
 };

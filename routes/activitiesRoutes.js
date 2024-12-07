@@ -4,5 +4,6 @@ const ActivitiesController = require("../controllers/ActivitiesController");
 
 router.post("/new", ActivitiesController.createActivity);
 router.patch("/update/:id", ActivitiesController.updateActivity);
+router.delete("/delete/:id", ActivitiesController.deleteActivity);
 
 module.exports = router;
