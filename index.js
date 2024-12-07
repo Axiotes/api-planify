@@ -10,6 +10,8 @@ const Activities = require("./models/Activities");
 const userRoutes = require("./routes/userRoutes");
 const activitiesRoutes = require("./routes/activitiesRoutes");
 
+const checkUser = require("./middleware/checkUser");
+
 app.use(cors());
 app.use(
   express.urlencoded({
@@ -19,7 +21,7 @@ app.use(
 app.use(express.json());
 
 app.use("/user", userRoutes);
-app.use("/activities", activitiesRoutes);
+app.use("/activities", checkUser, activitiesRoutes);
 
 conn
   .sync()
