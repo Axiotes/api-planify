@@ -1,6 +1,35 @@
 const Activities = require("../models/Activities");
+const User = require("../models/User");
 
 module.exports = class ActivitiesController {
+  static async userActivities(req, res) {
+    const userId = req.userId;
+
+    try {
+      const activities = await Activities.findAll({
+        where: { userId: userId },
+        attributes: [
+          "id",
+          "title",
+          "date",
+          "time",
+          "description",
+          "priority",
+          "alert",
+        ],
+      });
+
+      res.status(200).send({
+        message: "",
+        activities: activities,
+      });
+    } catch (err) {
+      res.status(400).send({
+        message: "Houve um erro acessar atividades",
+      });
+    }
+  }
+
   static async createActivity(req, res) {
     const newActivity = {
       userId: req.userId,
