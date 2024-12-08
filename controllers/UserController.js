@@ -86,4 +86,20 @@ module.exports = class UserController {
       });
     }
   }
+
+  static async verifyUser(req, res) {
+    const id = req.userId;
+
+    const user = User.findByPk(decoded.id);
+
+    if (!user) {
+      return res.status(401).send({
+        message: "Usuário não autorizado",
+      });
+    }
+
+    return res.status(200).send({
+      message: "Usuário autorizado",
+    });
+  }
 };
