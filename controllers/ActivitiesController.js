@@ -30,6 +30,33 @@ module.exports = class ActivitiesController {
     }
   }
 
+  static async activity(req, res) {
+    const id = req.params.id;
+
+    try {
+      const activity = await Activities.findByPk(id, {
+        attributes: [
+          "id",
+          "title",
+          "date",
+          "time",
+          "description",
+          "priority",
+          "alert",
+        ],
+      });
+
+      res.status(200).send({
+        message: "",
+        activity: activity,
+      });
+    } catch (err) {
+      res.status(400).send({
+        message: "Houve um erro acessar atividades",
+      });
+    }
+  }
+
   static async createActivity(req, res) {
     const newActivity = {
       userId: req.userId,
