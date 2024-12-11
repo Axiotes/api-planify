@@ -6,5 +6,6 @@ const checkUser = require("../middleware/checkUser");
 router.post("/register", UserController.register);
 router.post("/login", UserController.login);
 router.get("/verify", checkUser, UserController.verifyUser);
+router.get("/infos", checkUser, UserController.userInfo);
 
 module.exports = router;

@@ -102,4 +102,21 @@ module.exports = class UserController {
       message: "Usuário autorizado",
     });
   }
+
+  static async userInfo(req, res) {
+    const id = req.userId;
+
+    try {
+      const user = await User.findByPk(id);
+
+      res.status(200).send({
+        email: user.email,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(400).send({
+        message: "Houve um erro ao encontrar o usuário",
+      });
+    }
+  }
 };
