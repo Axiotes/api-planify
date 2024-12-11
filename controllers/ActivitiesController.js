@@ -32,9 +32,11 @@ module.exports = class ActivitiesController {
 
   static async activity(req, res) {
     const id = req.params.id;
+    const userId = req.userId;
 
     try {
-      const activity = await Activities.findByPk(id, {
+      const activity = await Activities.findOne({
+        where: { id: id, userId: userId },
         attributes: [
           "id",
           "title",
@@ -45,6 +47,13 @@ module.exports = class ActivitiesController {
           "alert",
         ],
       });
+
+      if (!activity) {
+        res.status(400).send({
+          message: "Atividade inexistente",
+        });
+        return;
+      }
 
       res.status(200).send({
         message: "",
