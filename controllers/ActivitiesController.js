@@ -4,10 +4,11 @@ const User = require("../models/User");
 module.exports = class ActivitiesController {
   static async userActivities(req, res) {
     const userId = req.userId;
+    const date = req.params.date;
 
     try {
       const activities = await Activities.findAll({
-        where: { userId: userId },
+        where: { userId: userId, date: date },
         attributes: [
           "id",
           "title",
