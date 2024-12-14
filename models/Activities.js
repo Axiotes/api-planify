@@ -18,7 +18,7 @@ const Activities = db.define("Activities", {
   time: {
     type: DataTypes.STRING,
     require: true,
-    allowNull: false,
+    allowNull: true,
   },
   description: {
     type: DataTypes.TEXT,
@@ -32,6 +32,12 @@ const Activities = db.define("Activities", {
     defaultValue: 1,
   },
   alert: {
+    type: DataTypes.BOOLEAN,
+    require: true,
+    allowNull: false,
+    defaultValue: false,
+  },
+  done: {
     type: DataTypes.BOOLEAN,
     require: true,
     allowNull: false,
