@@ -17,6 +17,7 @@ module.exports = class ActivitiesController {
           "description",
           "priority",
           "alert",
+          "done",
         ],
       });
 
@@ -144,7 +145,10 @@ module.exports = class ActivitiesController {
     const done = req.body.done;
 
     try {
-      await Activities.update(done, { where: { userId: userId, id: id } });
+      await Activities.update(
+        { done: done },
+        { where: { userId: userId, id: id } }
+      );
 
       res.status(200).send({
         message: "",
