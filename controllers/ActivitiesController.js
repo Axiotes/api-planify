@@ -17,6 +17,7 @@ module.exports = class ActivitiesController {
           "description",
           "priority",
           "alert",
+          "done",
         ],
       });
 
@@ -134,6 +135,29 @@ module.exports = class ActivitiesController {
 
       res.status(400).send({
         message: "Houve um erro ao remover atividade",
+      });
+    }
+  }
+
+  static async doneActivity(req, res) {
+    const userId = req.userId;
+    const id = req.params.id;
+    const done = req.body.done;
+
+    try {
+      await Activities.update(
+        { done: done },
+        { where: { userId: userId, id: id } }
+      );
+
+      res.status(200).send({
+        message: "",
+      });
+    } catch (err) {
+      console.log(err);
+
+      res.status(400).send({
+        message: "Houve um erro ao marcar atividade como feita",
       });
     }
   }
