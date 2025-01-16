@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon ./index.js localhost 3000",
-    "vercel-build": "npm i"
+    "vercel-build": "npm i && npm i mysql2"
   },
   "author": "Arthur Axiotes",
   "license": "ISC",
@@ -19,9 +19,5 @@
     "mysql2": "^3.11.5",
     "nodemon": "^3.1.7",
     "sequelize": "^6.37.5"
-  },
-  "engines": {
-    "node": "20.12.0",
-    "npm": "10.8.3"
   }
 }
