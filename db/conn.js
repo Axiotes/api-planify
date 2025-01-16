@@ -1,5 +1,4 @@
 require("dotenv").config();
-const fs = require("fs");
 
 const { Sequelize } = require("sequelize");
 
@@ -15,7 +14,7 @@ const sequelize = new Sequelize(
       ssl: {
         require: true,
         rejectUnauthorized: false,
-        ca: fs.readFileSync('db-certificate.crt')
+        ca: process.env.DATABASE_CERTIFICATE
       },
     },
   }
