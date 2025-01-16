@@ -1,4 +1,5 @@
 require("dotenv").config();
+const fs = require("fs");
 
 const { Sequelize } = require("sequelize");
 
@@ -10,6 +11,13 @@ const sequelize = new Sequelize(
     host: process.env.HOST,
     dialect: "mysql",
     port: process.env.PORT,
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+        ca: fs.readFileSync('db-certificate.crt')
+      },
+    },
   }
 );
 
