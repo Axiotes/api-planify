@@ -12,6 +12,8 @@ const activitiesRoutes = require("./routes/activitiesRoutes");
 
 const checkUser = require("./middleware/checkUser");
 
+app.use(compression());
+
 app.use(cors());
 app.use(
   express.urlencoded({
